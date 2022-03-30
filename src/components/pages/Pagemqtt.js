@@ -6,6 +6,7 @@ import mqtt from 'mqtt/dist/mqtt';
 const Pagemqtt = (props) => {
     const [showdate, setshowdate] = useState();
     const [isShown, setIsShown] = useState(false);
+    const max = ['235', '80', '10000', '10000', '60', '5']
     useEffect(() => {
 
         const client = mqtt.connect('ws://broker.emqx.io/mqtt', { port: 8083 });
@@ -33,8 +34,8 @@ const Pagemqtt = (props) => {
                             showdate.map((date, index) => {
                                 return (
                                     <div className="col">
-                                        <div class="cards">
-                                            <h4 className="text-white text-center">{date.title} 1</h4>
+                                        <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
+                                            <h4 className="text-white text-center ">{date.title} 1</h4>
                                             <div className="text-white text-center"><h3>{date.output[0]}</h3></div>
                                             <div className="text-white text-center"><h3>{date.unit}</h3></div>
                                         </div>
@@ -48,7 +49,7 @@ const Pagemqtt = (props) => {
                             showdate.map((date, index) => {
                                 return (
                                     <div className="col">
-                                        <div class="cards">
+                                        <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
                                             <h4 className="text-white text-center">{date.title} 2</h4>
                                             <div className="text-white text-center"><h3>{date.output[1]}</h3></div>
                                             <div className="text-white text-center"><h3>{date.unit}</h3></div>
@@ -63,7 +64,7 @@ const Pagemqtt = (props) => {
                             showdate.map((date, index) => {
                                 return (
                                     <div className="col">
-                                        <div class="cards">
+                                        <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
                                             <h4 className="text-white text-center">{date.title} 3</h4>
                                             <div className="text-white text-center"><h3>{date.output[2]}</h3></div>
                                             <div className="text-white text-center"><h3>{date.unit}</h3></div>
@@ -78,7 +79,7 @@ const Pagemqtt = (props) => {
                             showdate.map((date, index) => {
                                 return (
                                     <div className="col">
-                                        <div class="cards">
+                                        <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
                                             <h4 className="text-white text-center">{date.title}</h4>
                                             <div className="text-white text-center"><h3>{((date.output[0] + date.output[1] + date.output[2]) / 3).toFixed(2)}</h3></div>
                                             <div className="text-white text-center"><h3>{date.unit}</h3></div>

@@ -23,7 +23,7 @@ const Admin = () => {
     const handleClose = () => setShow(false);
 
     useEffect(async () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('tokenadmin');
         if (!token) {
 
             history.replace('/login');

@@ -23,10 +23,10 @@ const AdminMac = () => {
     const handleClose = () => setShow(false);
 
     useEffect(async () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('tokenadmin');
         if (!token) {
 
-            history.replace('/login');
+            history.replace('/loginadmin');
             return;
         }
 

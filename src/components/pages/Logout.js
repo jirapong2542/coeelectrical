@@ -10,10 +10,12 @@ const Logout = (props) => {
         if (token) {
 
             localStorage.removeItem('token');
+            localStorage.removeItem('tokenadmin');
             props.setIsLogin(false);
             history.replace('/login');
             return;
         }
+        localStorage.removeItem('tokenadmin');
         history.replace('/login');
     });
 

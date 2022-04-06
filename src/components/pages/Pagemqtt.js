@@ -7,6 +7,7 @@ const Pagemqtt = (props) => {
     const [showdate, setshowdate] = useState();
     const [isShown, setIsShown] = useState(false);
     const max = ['235', '80', '10000', '10000', '60', '5']
+
     useEffect(() => {
 
         const client = mqtt.connect('ws://broker.emqx.io/mqtt', { port: 8083 });

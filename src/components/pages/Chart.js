@@ -10,7 +10,7 @@ function Chart(props) {
     const [isLoad, setisLoad] = useState(false);
     const history = useHistory();
     props.setIsLogin(true)
-    const [datamachine, setDatamachine] = useState("");
+
 
     const [day1, setDay1] = useState('');
     const [day2, setDay2] = useState('');
@@ -85,7 +85,7 @@ function Chart(props) {
 
         var { usr_id } = jwt_decode(token);
 
-        const { data, status } = await axios.post((ApiServer + '/chart'), {
+        const { data } = await axios.post((ApiServer + '/chart'), {
             usr_id
         });
 
@@ -101,21 +101,24 @@ function Chart(props) {
     }, []);
 
     const fetchdata = async (macaddress) => {
-        console.log('ทดสอบfatchdata')
+        //console.log('ทดสอบfatchdata')
         //console.log(ID)
 
         if (macaddress !== undefined) {
 
-            const { data, status } = await axios.post((ApiServer + '/chartdata'), {
+            const { data, } = await axios.post((ApiServer + '/chartdata'), {
                 macaddress
             });
 
-            console.log(data);
+            //console.log(data);
 
             const loop = data.map((value, index) => {
-                alldatesshow.push(((value.created_at).substring(19, 0)).replace("T", " "))
-                alldates.push((value.created_at).substring(10, 0));
 
+                //console.log((value.time).substring(10, 0))
+                //alldatesshow.push(((value.created_at).substring(19, 0)).replace("T", " "))
+                alldatesshow.push(value.time);
+                // alldates.push((value.created_at).substring(10, 0));
+                alldates.push((value.time).substring(10, 0));
                 allVoltagep1.push(value.md_volt_p1);
                 allVoltagep2.push(value.md_volt_p2);
                 allVoltagep3.push(value.md_volt_p3);

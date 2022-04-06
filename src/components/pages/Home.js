@@ -33,7 +33,7 @@ const Home = (props) => {
         const { data, status } = await axios.post((ApiServer + '/macaddress'), {
             usr_id
         });
-        setDatamac(data.m_mac_address)
+        setDatamac(data)
         setisShown(true);
         console.log(data)
 
@@ -46,7 +46,7 @@ const Home = (props) => {
                 (datamac === undefined) ? <div className="page-heading-home"> <h1>กรุณาเพิ่มอุปกรณ์</h1> </div>
                     :
                     (isShown === true) ?
-                        <Pagemqtt macaddress={datamac} />
+                        <Pagemqtt macaddress={datamac.m_mac_address} Voltage={datamac.LimitVoltage} Current={datamac.LimitCurrent} Power={datamac.LimitPower} />
                         : null
             }
 

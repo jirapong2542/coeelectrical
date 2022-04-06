@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import mqtt from 'mqtt/dist/mqtt';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 
 const Pagemqtt = (props) => {
@@ -9,7 +9,7 @@ const Pagemqtt = (props) => {
     const max = ['235', '80', '10000', '10000', '60', '5']
 
     useEffect(() => {
-
+        console.log(props)
         const client = mqtt.connect('wss://broker.emqx.io/mqtt', { port: 8084 });
         client.on('connect', () => {
             client.subscribe(props.macaddress);
@@ -17,7 +17,7 @@ const Pagemqtt = (props) => {
 
         client.on('message', (topic, message) => {
             let obj = JSON.parse(message.toString());
-            console.log(obj.data);
+            //console.log(obj.data);
             setshowdate(obj.data)
             setIsShown(true);
         });
@@ -26,7 +26,17 @@ const Pagemqtt = (props) => {
         }
     }, []);
 
-
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 1800,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
 
     return (
@@ -81,6 +91,24 @@ const Pagemqtt = (props) => {
                     <div className="row row-cols-lg-6 mb-2">
                         {
                             showdate.map((date, index) => {
+                                if (index === 0 && date.output[0] >= props.Voltage) {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: 'ไฟฟ้าทำงานผิดปกติ'
+                                    })
+                                }
+                                if (index === 1 && date.output[0] >= props.Current) {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: 'กระแสไฟฟ้าทำงานผิดปกติ'
+                                    })
+                                }
+                                if (index === 2 && date.output[0] >= props.Power) {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: 'กำลังไฟฟ้าทำงานผิดปกติ'
+                                    })
+                                }
                                 return (
                                     <div className="col">
                                         <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
@@ -90,6 +118,7 @@ const Pagemqtt = (props) => {
                                         </div>
                                     </div>
                                 )
+
                             })
                         }
                     </div >

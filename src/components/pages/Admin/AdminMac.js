@@ -18,6 +18,9 @@ const AdminMac = () => {
     const [modalm_id, setModalm_id] = useState('');
     const [ModalMacaddress, setModalMacaddress] = useState('');
     const [Modalname, setModalname] = useState('');
+    const [ModalVoltage, setModalVoltage] = useState('');
+    const [ModalCurrent, setModalCurrent] = useState('');
+    const [ModalPower, setModalPower] = useState('');
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -45,6 +48,9 @@ const AdminMac = () => {
         setModalm_id(data[index].m_id);
         setModalMacaddress(data[index].m_mac_address);
         setModalname(data[index].m_name);
+        setModalVoltage(data[index].LimitVoltage);
+        setModalCurrent(data[index].LimitCurrent);
+        setModalPower(data[index].LimitPower);
         setShow(true);
     }
 
@@ -56,6 +62,9 @@ const AdminMac = () => {
             Modalusr_id,
             ModalMacaddress,
             Modalname,
+            ModalVoltage,
+            ModalCurrent,
+            ModalPower
         });
 
         Swal.fire({
@@ -115,6 +124,18 @@ const AdminMac = () => {
                         ชื่ออุปกรณ์:
                         <input className="form-control form-control-sm" onChange={e => setModalname(e.target.value)} value={Modalname} />
                     </div>
+                    <div>
+                        Limit Voltage:
+                        <input className="form-control form-control-sm" onChange={e => setModalVoltage(e.target.value)} value={ModalVoltage} />
+                    </div>
+                    <div>
+                        Limit Current:
+                        <input className="form-control form-control-sm" onChange={e => setModalCurrent(e.target.value)} value={ModalCurrent} />
+                    </div>
+                    <div>
+                        Limit Power:
+                        <input className="form-control form-control-sm" onChange={e => setModalPower(e.target.value)} value={ModalPower} />
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -138,6 +159,9 @@ const AdminMac = () => {
                                     <th>Macaddress</th>
                                     <th>ชื่ออุปกรณ์</th>
                                     <th>Username</th>
+                                    <th>Limit Voltage</th>
+                                    <th>Limit Current</th>
+                                    <th>Limit Power</th>
                                     <th>จัดการ</th>
                                 </tr>
                             </thead>
@@ -148,6 +172,9 @@ const AdminMac = () => {
                                             <td>{item.m_mac_address}</td>
                                             <td>{item.m_name}</td>
                                             <td>{item.usr_username}</td>
+                                            <td>{item.LimitVoltage} V</td>
+                                            <td>{item.LimitCurrent} A</td>
+                                            <td>{item.LimitPower} W</td>
                                             <td>
                                                 <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => modal(index)}>
                                                     Edit

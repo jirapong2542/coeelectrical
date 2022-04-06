@@ -22,8 +22,9 @@ const Devices = (props) => {
     const [Modalusr_id, setModalusr_id] = useState('');
     const [ModalName, setModalName] = useState('');
     const [ModalMacaddress, setModalMacaddress] = useState('');
-
-
+    const [ModalVoltage, setModalVoltage] = useState('');
+    const [ModalCurrent, setModalCurrent] = useState('');
+    const [ModalPower, setModalPower] = useState('');
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -48,27 +49,32 @@ const Devices = (props) => {
 
 
     const modal = (index) => {
-
+        console.log(data)
         setShow(true);
         console.log(data[index]);
         setModalm_id(data[index].m_id);
         setModalusr_id(data[index].usr_id);
         setModalMacaddress(data[index].m_mac_address);
         setModalName(data[index].m_name);
-
+        setModalVoltage(data[index].LimitVoltage);
+        setModalCurrent(data[index].LimitCurrent);
+        setModalPower(data[index].LimitPower);
     }
 
     const modalok = async () => {
-        console.log(Modalm_id);
-        console.log(Modalusr_id);
-        console.log(ModalName);
-        console.log(ModalMacaddress);
+        //console.log(Modalm_id);
+        //console.log(Modalusr_id);
+        //console.log(ModalName);
+        //console.log(ModalMacaddress);
 
         const { data, status } = await axios.post((ApiServer + '/edit'), {
             Modalm_id,
             Modalusr_id,
             ModalName,
             ModalMacaddress,
+            ModalVoltage,
+            ModalCurrent,
+            ModalPower
         });
 
         Swal.fire({
@@ -166,6 +172,18 @@ const Devices = (props) => {
                     Name:
                     <input className="form-control form-control-sm" onChange={e => setModalName(e.target.value)} value={ModalName} />
                 </div>
+                <div>
+                    Limit Voltage:
+                    <input className="form-control form-control-sm" onChange={e => setModalVoltage(e.target.value)} value={ModalVoltage} />
+                </div>
+                <div>
+                    Limit Current:
+                    <input className="form-control form-control-sm" onChange={e => setModalCurrent(e.target.value)} value={ModalCurrent} />
+                </div>
+                <div>
+                    Limit Power:
+                    <input className="form-control form-control-sm" onChange={e => setModalPower(e.target.value)} value={ModalPower} />
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
@@ -189,7 +207,9 @@ const Devices = (props) => {
                         <tr>
                             <th>Mac Address</th>
                             <th>Name</th>
-                            <th>-</th>
+                            <th>Limit Voltage</th>
+                            <th>Limit Current</th>
+                            <th>Limit Power</th>
                             <th>จัดการ</th>
                         </tr>
                     </thead>
@@ -199,7 +219,9 @@ const Devices = (props) => {
                                 <tr className="active-rows" key={index}>
                                     <td>{item.m_mac_address}</td>
                                     <td>{item.m_name}</td>
-                                    <td>{item.point}</td>
+                                    <td>{item.LimitVoltage} V</td>
+                                    <td>{item.LimitCurrent} A</td>
+                                    <td>{item.LimitPower} W</td>
                                     <td className="m-0">
                                         <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => modal(index)}>
                                             แก้ไขข้อมูล

@@ -38,8 +38,8 @@ const Home = (props) => {
             {
                 (datamac === undefined) ? <div className="page-heading-home"> <h1>กรุณาเพิ่มอุปกรณ์</h1> </div>
                     :
-                    (isShown === true) ?
-                        < Pagemqtt macaddress={datamac} />
+                    (isShown === true) ? null
+                        // < Pagemqtt macaddress={datamac} />
                         : null
             }
 

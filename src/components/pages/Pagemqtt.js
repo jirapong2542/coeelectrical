@@ -10,7 +10,7 @@ const Pagemqtt = (props) => {
 
     useEffect(() => {
 
-        const client = mqtt.connect('ws://broker.emqx.io/mqtt', { port: 8083 });
+        const client = mqtt.connect('wss://broker.emqx.io/mqtt', { port: 8084 });
         client.on('connect', () => {
             client.subscribe(props.macaddress);
         });
@@ -25,6 +25,9 @@ const Pagemqtt = (props) => {
             client.end();
         }
     }, []);
+
+
+
 
     return (
         <div>

@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Pagemqtt from "./Pagemqtt";
 
+import mqtt from 'mqtt/dist/mqtt';
 import { ApiServer } from '../Configs/Configserver';
 
 
@@ -30,7 +31,26 @@ const Home = (props) => {
             usr_id
         });
         setDatamac(data.m_mac_address)
-        setisShown(true);
+        //setisShown(true);
+
+        test1(data.m_mac_address);
+    }
+
+    const test1 = (macaddress) => {
+
+        console.log()
+        const client = mqtt.connect('ws://broker.emqx.io/mqtt', { port: 8083 });
+        client.on('connect', () => {
+            client.subscribe(macaddress);
+        });
+
+        client.on('message', (topic, message) => {
+            let obj = JSON.parse(message.toString());
+            console.log(obj);
+        });
+        return () => {
+            client.end();
+        }
     }
 
     return (

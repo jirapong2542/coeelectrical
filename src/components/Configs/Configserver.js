@@ -1,1 +1,1 @@
-export const ApiServer = "https://node3p.herokuapp.com/"
+export const ApiServer = "https://node3p.herokuapp.com"

@@ -16,7 +16,7 @@ const Pagemqtt = (props) => {
 
         client.on('message', (topic, message) => {
             let obj = JSON.parse(message.toString());
-            console.log(obj.data);
+            //console.log(obj.data);
             setshowdate(obj.data)
             setIsShown(true);
         });

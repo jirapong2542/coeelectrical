@@ -35,7 +35,7 @@ const Home = (props) => {
         });
         setDatamac(data.m_mac_address)
         setisShown(true);
-        console.log(data)
+        //console.log(data)
 
 
     }, []);

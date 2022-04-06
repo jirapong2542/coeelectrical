@@ -39,7 +39,7 @@ const Home = (props) => {
     const test1 = (macaddress) => {
 
         console.log()
-        const client = mqtt.connect('ws://broker.emqx.io/mqtt', { port: 8083 });
+        const client = mqtt.connect('https://broker.emqx.io/mqtt', { port: 8083 });
         client.on('connect', () => {
             client.subscribe(macaddress);
         });

@@ -9,14 +9,14 @@ const Pagemqtt = (props) => {
     const max = ['235', '80', '10000', '10000', '60', '5']
     useEffect(() => {
 
-        const client = mqtt.connect('https://broker.emqx.io/mqtt', { port: 8083 });
+        const client = mqtt.connect('mqtt://broker.emqx.io/mqtt', { port: 8083 });
         client.on('connect', () => {
             client.subscribe(props.macaddress);
         });
 
         client.on('message', (topic, message) => {
             let obj = JSON.parse(message.toString());
-            //console.log(obj.data);
+            console.log(obj.data);
             setshowdate(obj.data)
             setIsShown(true);
         });

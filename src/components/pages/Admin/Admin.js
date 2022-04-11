@@ -9,6 +9,7 @@ import { Button, Modal } from 'react-bootstrap';
 const Admin = () => {
 
     const history = useHistory();
+
     const [refresh, setrefresh] = useState(false);
     const togglerefresh = () => setrefresh(!refresh);
     const [data, setData] = useState(null);
@@ -19,8 +20,17 @@ const Admin = () => {
     const [ModalUsername, setModalUsername] = useState('');
     const [Modalpassword, setModalpassword] = useState('');
 
+    const [fname, setfname] = useState('');
+    const [lname, setlname] = useState('');
+    const [Username, setUsername] = useState('');
+    const [password, setpassword] = useState('');
+
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+
+    const [showmodaladduser, setShowmodaladduser] = useState(false);
+    const handleClose1 = () => setShowmodaladduser(false);
 
     useEffect(async () => {
         const token = localStorage.getItem('tokenadmin');
@@ -34,7 +44,7 @@ const Admin = () => {
         const { data, status } = await axios.post((ApiServer + '/adminuser'), {
 
         });
-        console.log(data)
+        //console.log(data)
         setData(data)
         // console.log(data.m_mac_address)
         // console.log(data.m_name)
@@ -50,6 +60,114 @@ const Admin = () => {
         setModalUsername(data[index].usr_username);
         setModalpassword(data[index].usr_password);
         setShow(true);
+    }
+    const modaladduser = async () => {
+
+
+
+        setShowmodaladduser(true);
+    }
+
+    const modalokadduser = async () => {
+
+
+        const { data } = await axios.post((ApiServer + '/adminuser'), {
+
+        });
+        console.log(fname);
+        console.log(lname);
+        console.log(Username);
+        console.log(password);
+
+        if (Username === "") {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'ยังไม่กรอก Username',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        } if (password === "") {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'ยังไม่กรอก Password',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        } if (fname === "") {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'ยังไม่กรอก ชื่อ',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        } if (lname === "") {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'ยังไม่กรอก นามสกุล',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        } else {
+
+            data.map(async (item, index) => {
+                console.log(item.usr_username)
+                if (Username === item.usr_username) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'username ซ้ำในระบบ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    return;
+                } else if (index === data.length - 1) {
+
+                    const { data, status } = await axios.post((ApiServer + '/adduser'), {
+                        fname,
+                        lname,
+                        Username,
+                        password
+                    });
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'เพื่มข้อมูลสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                    setShowmodaladduser(false);
+                    togglerefresh();
+                }
+
+            });
+        }
+
+
+        // console.log('sdadas')
+        // const { data, status } = await axios.post((ApiServer + '/adminedituser'), {
+        //     Modalusr_id,
+        //     Modalfname,
+        //     Modallname,
+        //     ModalUsername,
+        //     Modalpassword
+        // });
+
+        // Swal.fire({
+        //     position: 'top-end',
+        //     icon: 'success',
+        //     title: 'แก้ไขข้อมูลสำเร็จ',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        // })
+        // setShow(false)
+        // //console.log(data.serverStatus);
+        // togglerefresh();
     }
 
     const modalok = async () => {
@@ -140,45 +258,83 @@ const Admin = () => {
                 </Modal.Footer>
             </Modal>
 
+            <Modal
+                show={showmodaladduser}
+                onHide={handleClose1}
+                backdrop="static"
+                keyboard={false}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>เพื่มสมาชิก</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        ชื่อ:
+                        <input className="form-control form-control-sm" onChange={e => setfname(e.target.value)} value={fname} />
+                    </div>
+                    <div>
+                        นามสกุล:
+                        <input className="form-control form-control-sm" onChange={e => setlname(e.target.value)} value={lname} />
+                    </div>
+                    <div>
+                        Username:
+                        <input className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} value={Username} />
+                    </div>
+                    <div>
+                        Password:
+                        <input className="form-control form-control-sm" onChange={e => setpassword(e.target.value)} value={password} />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose1}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => modalokadduser()}>ยืนยัน</Button>
+                </Modal.Footer>
+            </Modal>
+
             <div className="page-heading-Devices">
                 <h1>จัดการสมาชิก</h1>
-                <div className="Devices">
-                    <div className="fromDevices">
-                    </div>
-                    <div className="table">
-                        <table className="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>ชื่อ</th>
-                                    <th>นามสกุล</th>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>จัดการ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data && data.map((item, index) => {
-                                    return (
-                                        <tr className="active-rows" key={index}>
-                                            <td>{item.usr_fname}</td>
-                                            <td>{item.usr_lname}</td>
-                                            <td>{item.usr_username}</td>
-                                            <td>{item.usr_password}</td>
-                                            <td>
-                                                <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => modal(index)}>
-                                                    Edit
-                                                </button>
-                                                <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => btdelete(index)}>
-                                                    Delete...
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
+                <div style={{ width: '90vw', margin: '10px' }} className="mx-auto ">
+                    <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-1 float-end" onClick={() => modaladduser()}>
+                        Add User
+                    </button>
                 </div>
+                <div className="table">
+                    <table className="styled-table">
+                        <thead>
+                            <tr>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data && data.map((item, index) => {
+                                return (
+                                    <tr className="active-rows" key={index}>
+                                        <td>{item.usr_fname}</td>
+                                        <td>{item.usr_lname}</td>
+                                        <td>{item.usr_username}</td>
+                                        <td>{item.usr_password}</td>
+                                        <td>
+                                            <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => modal(index)}>
+                                                Edit
+                                            </button>
+                                            <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => btdelete(index)}>
+                                                Delete...
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
 
 

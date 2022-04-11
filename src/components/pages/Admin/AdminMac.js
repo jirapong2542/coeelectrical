@@ -147,48 +147,42 @@ const AdminMac = () => {
 
             <div className="page-heading-Devices">
                 <h1>จัดการอุปกรณ์</h1>
-                <div className="Devices">
-                    <div className="fromDevices">
-                        {/* <TextInput class="inputDevices" placeholder="Mac Address" onChange={e => setaddMacAddress(e.target.value)} />
-                        <button class="button" type="submit" onClick={() => btaddMacAddress()}>SUBMIT</button> */}
-                    </div>
-                    <div className="table">
-                        <table className="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Macaddress</th>
-                                    <th>ชื่ออุปกรณ์</th>
-                                    <th>Username</th>
-                                    <th>Limit Voltage</th>
-                                    <th>Limit Current</th>
-                                    <th>Limit Power</th>
-                                    <th>จัดการ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data && data.map((item, index) => {
-                                    return (
-                                        <tr className="active-rows" key={index}>
-                                            <td>{item.m_mac_address}</td>
-                                            <td>{item.m_name}</td>
-                                            <td>{item.usr_username}</td>
-                                            <td>{item.LimitVoltage} V</td>
-                                            <td>{item.LimitCurrent} A</td>
-                                            <td>{item.LimitPower} W</td>
-                                            <td>
-                                                <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => modal(index)}>
-                                                    Edit
-                                                </button>
-                                                <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => btdelete(index)}>
-                                                    Delete...
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
+                <div className="table">
+                    <table className="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Macaddress</th>
+                                <th>ชื่ออุปกรณ์</th>
+                                <th>Username</th>
+                                <th>Limit Voltage</th>
+                                <th>Limit Current</th>
+                                <th>Limit Power</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data && data.map((item, index) => {
+                                return (
+                                    <tr className="active-rows" key={index}>
+                                        <td>{item.m_mac_address}</td>
+                                        <td>{item.m_name}</td>
+                                        <td>{item.usr_username}</td>
+                                        <td>{item.LimitVoltage} V</td>
+                                        <td>{item.LimitCurrent} A</td>
+                                        <td>{item.LimitPower} W</td>
+                                        <td>
+                                            <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => modal(index)}>
+                                                Edit
+                                            </button>
+                                            <button style={{ backgroundColor: '#63c76a' }} className="btn btn-success mx-2" onClick={() => btdelete(index)}>
+                                                Delete...
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>

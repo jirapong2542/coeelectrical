@@ -6,7 +6,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 const Pagemqtt = (props) => {
     const [showdate, setshowdate] = useState();
     const [isShown, setIsShown] = useState(false);
-    const max = ['240', '80', '99999', '99999', '60', '5']
+    const max = ['240', '95', '99999', '99999', '60', '5']
 
     useEffect(() => {
         console.log(props)

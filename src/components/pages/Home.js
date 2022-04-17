@@ -10,7 +10,6 @@ import { ApiServer } from '../Configs/Configserver';
 const Home = (props) => {
     props.setIsLogin(true)
     const history = useHistory();
-    const [data, setData] = useState(null);
     const [datamac, setDatamac] = useState("");
     const [isShown, setisShown] = useState(false);
 
@@ -43,7 +42,7 @@ const Home = (props) => {
     return (
         <div className="container-fluid mt-2">
             {
-                (datamac === undefined) ? <div className="page-heading-home"> <h1>กรุณาเพิ่มอุปกรณ์</h1> </div>
+                (datamac === "") ? <div className="page-heading-home"> <h1>กรุณาเพิ่มอุปกรณ์</h1> </div>
                     :
                     (isShown === true) ?
                         <Pagemqtt macaddress={datamac.m_mac_address} Voltage={datamac.LimitVoltage} Current={datamac.LimitCurrent} Power={datamac.LimitPower} />

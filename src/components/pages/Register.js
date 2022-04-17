@@ -9,16 +9,17 @@ import { ApiServer } from '../Configs/Configserver';
 const Register = () => {
 
 
-    const [username, setusername] = useState('');
+    const [Username, setusername] = useState('');
     const [password, setpassword] = useState('');
     const [confirm, setconfirm] = useState('');
     const [firstname, setfirstname] = useState('');
     const [lastname, setlastname] = useState('');
     const [error, setError] = useState('');
-    const [succeed, setsucceed] = useState('');
+
     const handlereg = async () => {
 
-        if (username === "") {
+
+        if (Username === "") {
             setError('ยังไม่กรอก Username');
         } if (password === "") {
             setError('ยังไม่กรอก Password');
@@ -30,38 +31,44 @@ const Register = () => {
             setError('ยังไม่กรอก Last Name');
         } if (password !== confirm) {
             setError('รหัสผ่านไม่ตรงกัน');
-        } else {
-            const { data, status } = await axios.post((ApiServer + '/register'), {
-                username,
-                password,
-                confirm,
-                firstname,
-                lastname
+        } if (Username !== "" && firstname !== "" && lastname !== "" && (password === confirm)) {
+
+
+            // const { data } = await axios.post((ApiServer + '/adminuser'));
+            const { data } = await axios.post((ApiServer + '/getuser'), {
+                Username,
             });
 
-            // console.log(username)
-            // console.log(password)
-            // console.log(confirm)
-            // console.log(firstname)
-            // console.log(lastname)
-            setsucceed(data.message)
-            console.log(status)
+            if (data.length === 0) {
+
+                const { data } = await axios.post((ApiServer + '/register'), {
+                    Username,
+                    password,
+                    confirm,
+                    firstname,
+                    lastname
+                });
+
+                setError(data.message)
+            } else {
+                setError('username ซ้ำกรุณาสมัครใหม่');
+
+            }
 
         }
     }
 
     return (
         //<form>
-        <div className="page-heading-login">
+        <div className="page-heading-register">
             <div className="login-form">
-                <div className="logo-login">COE</div>
+                <div className="logo-register">COE</div>
                 <div>
                     <div className="form-group">
-                        {/* //<label className="login-label">Email Address</label> */}
                         <label className="login-label">Username</label>
                         <input className="inputlogin" type="text"
                             placeholder="Username" required="required"
-                            value={username}
+                            value={Username}
                             onChange={e => setusername(e.target.value)}
                         />
                     </div>
@@ -113,7 +120,6 @@ const Register = () => {
 
                     <div style={{ textAlign: "center", color: "#ff0a0ac9" }}>
                         {error}
-                        {succeed}
                     </div>
                     <div className="login-content">
                         <center><h4>สาขาวิศวกรรมคอมพิวเตอร์ มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย</h4></center>

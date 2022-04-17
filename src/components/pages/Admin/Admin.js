@@ -113,39 +113,61 @@ const Admin = () => {
             })
         } else {
 
-            data.map(async (item, index) => {
-                console.log(item.usr_username)
-                if (Username === item.usr_username) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'username ซ้ำในระบบ',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    return;
-                } else if (index === data.length - 1) {
-
-                    const { data, status } = await axios.post((ApiServer + '/adduser'), {
-                        fname,
-                        lname,
-                        Username,
-                        password
-                    });
-
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'เพื่มข้อมูลสำเร็จ',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-
-                    setShowmodaladduser(false);
-                    togglerefresh();
-                }
-
+            const { data } = await axios.post((ApiServer + '/getuser'), {
+                Username,
             });
+
+            if (data.length === 0) {
+
+                const { data } = await axios.post((ApiServer + '/adduser'), {
+                    fname,
+                    lname,
+                    Username,
+                    password
+                });
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'เพื่มข้อมูลสำเร็จ',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                setShowmodaladduser(false);
+                togglerefresh();
+
+            } else {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'username ซ้ำในระบบ',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+
+
+
+            // data.map(async (item, index) => {
+            //     console.log(item.usr_username)
+            //     if (Username === item.usr_username) {
+            //       
+            //         return;
+            //     } else if (index === data.length - 1) {
+
+            //         const { data, status } = await axios.post((ApiServer + '/adduser'), {
+            //             fname,
+            //             lname,
+            //             Username,
+            //             password
+            //         });
+
+
+            //     }
+
+            // });
         }
 
 

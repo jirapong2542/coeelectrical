@@ -8,16 +8,18 @@ const Pagemqtt = (props) => {
     const [showdate, setshowdate] = useState();
     const [isShown, setIsShown] = useState(false);
     const max = ['240', '95', '99999', '99999', '60', '5']
-    const [datavotage1, setDatavotage1] = useState(['0']);
-    const [datavotage2, setDatavotage2] = useState(['0']);
-    const [datavotage3, setDatavotage3] = useState(['0']);
-    const [datacurrent1, setDatacurrent1] = useState(['0']);
-    const [datacurrent2, setDatacurrent2] = useState(['0']);
-    const [datacurrent3, setDatacurrent3] = useState(['0']);
+    const [datavotage1, setDatavotage1] = useState([]);
+    const [datavotage2, setDatavotage2] = useState([]);
+    const [datavotage3, setDatavotage3] = useState([]);
 
-    const [datapower1, setDatapower1] = useState(['0']);
-    const [datapower2, setDatapower2] = useState(['0']);
-    const [datapower3, setDatapower3] = useState(['0']);
+
+    const [datacurrent1, setDatacurrent1] = useState([]);
+    const [datacurrent2, setDatacurrent2] = useState([]);
+    const [datacurrent3, setDatacurrent3] = useState([]);
+
+    const [datapower1, setDatapower1] = useState([]);
+    const [datapower2, setDatapower2] = useState([]);
+    const [datapower3, setDatapower3] = useState([]);
 
 
     useEffect(() => {
@@ -26,20 +28,50 @@ const Pagemqtt = (props) => {
         client.on('connect', () => {
             client.subscribe(props.macaddress);
         });
-
+        let v1 = []
+        let v2 = []
+        let v3 = []
+        let c1 = []
+        let c2 = []
+        let c3 = []
+        let p1 = []
+        let p2 = []
+        let p3 = []
         client.on('message', (topic, message) => {
             let obj = JSON.parse(message.toString());
             //console.log(obj.data[2]);
-            datavotage1.push(obj.data[0].output[0]);
-            datavotage2.push(obj.data[0].output[1]);
-            datavotage3.push(obj.data[0].output[2]);
-            datacurrent1.push(obj.data[1].output[0]);
-            datacurrent2.push(obj.data[1].output[1]);
-            datacurrent3.push(obj.data[1].output[2]);
-            datapower1.push(obj.data[2].output[0]);
-            datapower2.push(obj.data[2].output[1]);
-            datapower3.push(obj.data[2].output[2]);
-            //console.log(test)
+            v1.push(obj.data[0].output[0])
+            v2.push(obj.data[0].output[1])
+            v3.push(obj.data[0].output[2])
+            c1.push(obj.data[1].output[0])
+            c2.push(obj.data[1].output[1])
+            c3.push(obj.data[1].output[2])
+            p1.push(obj.data[2].output[0])
+            p2.push(obj.data[2].output[1])
+            p3.push(obj.data[2].output[2])
+            if (v1.length && c1.length && p1.length >= 15) {
+
+                console.log("เข้า")
+                v1.splice(0, 1)
+                v2.splice(0, 1)
+                v3.splice(0, 1)
+                c1.splice(0, 1)
+                c2.splice(0, 1)
+                c3.splice(0, 1)
+                p1.splice(0, 1)
+                p2.splice(0, 1)
+                p3.splice(0, 1)
+            }
+            setDatavotage1(v1);
+            setDatavotage2(v2);
+            setDatavotage3(v3);
+            setDatacurrent1(c1);
+            setDatacurrent2(c2);
+            setDatacurrent3(c3);
+            setDatapower1(p1);
+            setDatapower2(p2);
+            setDatapower3(p3);
+
             setshowdate(obj.data)
             setIsShown(true);
         });
@@ -126,7 +158,7 @@ const Pagemqtt = (props) => {
                 }
             },
             zoom: {
-                enabled: true
+                enabled: false
             },
 
         },
@@ -171,7 +203,7 @@ const Pagemqtt = (props) => {
                 }
             },
             zoom: {
-                enabled: true
+                enabled: false
             },
 
         },
@@ -216,13 +248,13 @@ const Pagemqtt = (props) => {
                 }
             },
             zoom: {
-                enabled: true
+                enabled: false
             },
 
         },
         colors: ['#19e6a0', '#1798f9', '#df513d'],
         title: {
-            text: 'Realtime Current',
+            text: 'Realtime Power',
             align: 'left',
             style: {
                 fontSize: '25px',

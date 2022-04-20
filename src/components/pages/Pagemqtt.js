@@ -110,13 +110,15 @@ const Pagemqtt = (props) => {
                                     })
                                 }
                                 return (
-                                    <div className="col">
-                                        <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
-                                            <h4 className="text-white text-center">{date.title}</h4>
-                                            <div className="text-white text-center"><h3>{((date.output[0] + date.output[1] + date.output[2]) / 3).toFixed(2)}</h3></div>
-                                            <div className="text-white text-center"><h3>{date.unit}</h3></div>
-                                        </div>
-                                    </div>
+                                    <>
+                                        {/* <div className="col">
+                                            <div className={"cards  " + (index === index && date.output[0] >= 0 && date.output[0] <= max[index] ? 'border border-3 border-success' : 'border border-3 border-danger')}>
+                                                <h4 className="text-white text-center">{date.title}</h4>
+                                                <div className="text-white text-center"><h3>{((date.output[0] + date.output[1] + date.output[2]) / 3).toFixed(2)}</h3></div>
+                                                <div className="text-white text-center"><h3>{date.unit}</h3></div>
+                                            </div>
+                                        </div> */}
+                                    </>
                                 )
 
                             })

@@ -132,7 +132,7 @@ const Pagemqtt = (props) => {
         },
         colors: ['#19e6a0', '#1798f9', '#df513d'],
         title: {
-            text: 'Realtime ',
+            text: 'Realtime Voltage',
             align: 'left',
             style: {
                 fontSize: '25px',
@@ -222,7 +222,7 @@ const Pagemqtt = (props) => {
         },
         colors: ['#19e6a0', '#1798f9', '#df513d'],
         title: {
-            text: 'Realtime',
+            text: 'Realtime Current',
             align: 'left',
             style: {
                 fontSize: '25px',

@@ -7,7 +7,8 @@
 }
 
 .web {
-  background: url(./images/background1.jpg);
+  /* background: url(./images/background1.jpg); */
+  background-color: rgb(32, 53, 70);
   background-position: center;
   background-size: cover;
   height: 100vh;

@@ -89,7 +89,7 @@ function Chart(props) {
             usr_id
         });
 
-        console.log(data)
+        //console.log(data)
         var macaddress = data;
         //console.log(data)
         if (macaddress.length != 0) {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import mqtt from 'mqtt/dist/mqtt';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-import ReactApexChart from "react-apexcharts";
 import Chart from "react-apexcharts";
 
 const Pagemqtt = (props) => {
@@ -49,9 +48,9 @@ const Pagemqtt = (props) => {
             p1.push(obj.data[2].output[0])
             p2.push(obj.data[2].output[1])
             p3.push(obj.data[2].output[2])
-            if (v1.length && c1.length && p1.length >= 15) {
+            if (v1.length && c1.length && p1.length >= 10) {
 
-                console.log("เข้า")
+                //console.log("เข้า")
                 v1.splice(0, 1)
                 v2.splice(0, 1)
                 v3.splice(0, 1)
@@ -232,7 +231,15 @@ const Pagemqtt = (props) => {
                     fontSize: '5px'
                 }
             }
-        }
+        },
+        // stroke: {
+        //     show: true,
+        //     curve: 'smooth',
+        //     lineCap: 'butt',
+        //     colors: undefined,
+        //     width: 5,
+        //     dashArray: 0,
+        // }
     };
     const options3 = {
         chart: {

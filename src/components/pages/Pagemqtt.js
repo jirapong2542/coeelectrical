@@ -360,6 +360,12 @@ const Pagemqtt = (props) => {
                                         title: 'ไฟฟ้าทำงานผิดปกติ'
                                     })
                                 }
+                                if (index === 0 && date.output[0] <= 5) {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: 'ไฟฟ้าดับ'
+                                    })
+                                }
                                 if (index === 1 && date.output[0] >= props.Current) {
                                     Toast.fire({
                                         icon: 'error',
@@ -372,6 +378,7 @@ const Pagemqtt = (props) => {
                                         title: 'กำลังไฟฟ้าทำงานผิดปกติ'
                                     })
                                 }
+
                                 return (
                                     <>
                                         {/* <div className="col">

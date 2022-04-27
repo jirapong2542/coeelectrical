@@ -13,6 +13,7 @@ import Logout from "./pages/Logout";
 import Admin from "./pages/Admin/Admin";
 import AdminMac from "./pages/Admin/AdminMac";
 import Adminlogin from "./pages/Admin/adminlogin";
+import Settings from "./pages/Settings";
 
 function App() {
 
@@ -30,10 +31,12 @@ function App() {
           <Route path="/home" exact component={() => <Home setIsLogin={setIsLogin} />} />
           <Route path="/chart" exact component={() => <Chart setIsLogin={setIsLogin} />} />
           <Route path="/Devices" exact component={() => <Devices setIsLogin={setIsLogin} />} />
+          <Route path="/Settings" exact component={() => <Settings setIsLogin={setIsLogin} />} />
           <Route path="/logout" exact component={() => <Logout setIsLogin={setIsLogin} />} />
           <Route path="/Admin" exact component={() => <Admin setIsLogin={setIsLogin} />} />
           <Route path="/AdminMac" exact component={() => <AdminMac setIsLogin={setIsLogin} />} />
           <Route path="/Adminlogin" exact component={() => <Adminlogin setIsLogin={setIsLogin} />} />
+
         </Switch>
       </Router>
     </div>

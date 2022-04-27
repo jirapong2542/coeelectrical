@@ -12,6 +12,10 @@ export const MenuList = [
         url: "/Devices",
     },
     {
+        title: "จัดการข้อมูล",
+        url: "/Settings",
+    },
+    {
         title: "Logout",
         url: "/Logout",
     },
